@@ -26,6 +26,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Adaptador de la interfaz gráfica para gestionar inmuebles.
+ * <p>
+ * Este controlador conecta la vista JavaFX con los casos de uso de la
+ * aplicación, permitiendo crear, consultar, actualizar y eliminar propiedades.
+ * </p>
+ */
 public class InmuebleController {
     @FXML
     private TableView<Inmueble> inmuebleTable;

@@ -18,6 +18,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Adaptador JDBC del repositorio de inmuebles.
+ * <p>
+ * Implementa el puerto {@link InmuebleRepository} para persistir entidades del
+ * dominio en una base de datos MySQL mediante sentencias SQL explícitas.
+ * </p>
+ */
 public class JdbcInmuebleRepository implements InmuebleRepository {
     private static final String SELECT_INMUEBLES =
             "SELECT i.chip, i.fecha_compra, i.direccion, i.estado, i.tipo, "

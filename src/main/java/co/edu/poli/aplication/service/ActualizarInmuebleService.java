@@ -6,14 +6,25 @@ import co.edu.poli.aplication.port.out.InmuebleRepository;
 
 import java.util.Objects;
 
+/**
+ * Implementación del caso de uso para actualizar inmuebles.
+ */
 public class ActualizarInmuebleService implements ActualizarInmuebleUseCase {
     private final InmuebleRepository inmuebleRepository;
 
+    /**
+     * Crea el servicio con el repositorio de persistencia.
+     *
+     * @param inmuebleRepository repositorio de inmuebles
+     */
     public ActualizarInmuebleService(InmuebleRepository inmuebleRepository) {
         this.inmuebleRepository = Objects.requireNonNull(inmuebleRepository,
                 "El repositorio de inmuebles es obligatorio");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Inmueble actualizar(Inmueble inmueble) {
         Objects.requireNonNull(inmueble, "El inmueble es obligatorio");
