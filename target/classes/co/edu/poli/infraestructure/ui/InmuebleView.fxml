@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12.0" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.poli.infraestructure.ui.InmuebleController">
+    <padding>
+        <Insets top="16.0" right="16.0" bottom="16.0" left="16.0"/>
+    </padding>
+
+    <Label text="Gestión de inmuebles" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="8.0">
+        <TextField fx:id="buscarChipField" promptText="Buscar por CHIP" HBox.hgrow="ALWAYS"/>
+        <Button text="Buscar" onAction="#consultarPorChip"/>
+        <Button text="Mostrar todos" onAction="#consultarInmuebles"/>
+    </HBox>
+
+    <TableView fx:id="inmuebleTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="chipColumn" text="CHIP" prefWidth="130.0"/>
+            <TableColumn fx:id="tipoColumn" text="Tipo" prefWidth="100.0"/>
+            <TableColumn fx:id="fechaColumn" text="Fecha compra" prefWidth="115.0"/>
+            <TableColumn fx:id="direccionColumn" text="Dirección" prefWidth="210.0"/>
+            <TableColumn fx:id="estadoColumn" text="Estado" prefWidth="100.0"/>
+            <TableColumn fx:id="propietarioColumn" text="Propietario" prefWidth="170.0"/>
+        </columns>
+    </TableView>
+
+    <Separator/>
+    <Label text="Datos del inmueble y propietario" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10.0" vgap="8.0">
+        <Label text="CHIP:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="chipField" promptText="Identificador único"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Tipo:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="tipoComboBox" maxWidth="Infinity"
+                  GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+        <Label text="Fecha de compra:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <DatePicker fx:id="fechaCompraPicker" maxWidth="Infinity"
+                    GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Estado:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <ComboBox fx:id="estadoComboBox" maxWidth="Infinity"
+                   GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+        <Label text="Dirección:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="direccionField" promptText="Dirección"
+                   GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2"/>
+
+        <Label text="ID propietario:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="propietarioIdField" promptText="Identificación"
+                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Nombre:" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <TextField fx:id="propietarioNombreField" promptText="Nombre completo"
+                   GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+        <Label text="Correo propietario:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="propietarioCorreoField" promptText="Correo electrónico"
+                   GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4"/>
+
+        <HBox fx:id="apartamentoOptions" spacing="10.0"
+              GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="5">
+            <Label text="N.º piso del apartamento:"/>
+            <TextField fx:id="numeroPisoField" promptText="Número de piso"/>
+        </HBox>
+
+        <HBox fx:id="casaOptions" spacing="10.0"
+              GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="6">
+            <Label text="Pisos de la casa:"/>
+            <TextField fx:id="pisosField" promptText="Cantidad de pisos"/>
+            <Label text="Área del sótano (m²):"/>
+            <TextField fx:id="sotanoAreaField" promptText="Opcional"/>
+            <Label text="Uso del sótano:"/>
+            <TextField fx:id="sotanoTipoUsoField" promptText="Opcional"/>
+        </HBox>
+
+        <columnConstraints>
+            <javafx.scene.layout.ColumnConstraints minWidth="120.0"/>
+            <javafx.scene.layout.ColumnConstraints hgrow="ALWAYS" minWidth="140.0"/>
+            <javafx.scene.layout.ColumnConstraints minWidth="130.0"/>
+            <javafx.scene.layout.ColumnConstraints hgrow="ALWAYS" minWidth="140.0"/>
+        </columnConstraints>
+    </GridPane>
+
+    <HBox spacing="8.0">
+        <Button text="Crear" onAction="#crearInmueble"/>
+        <Button text="Actualizar seleccionado" onAction="#actualizarInmueble"/>
+        <Button text="Eliminar seleccionado" onAction="#eliminarInmueble"/>
+        <Button text="Limpiar" onAction="#limpiarFormulario"/>
+    </HBox>
+</VBox>
