@@ -1,73 +1,106 @@
 # Gestión de Inmuebles
 
-Sistema de gestión de inmuebles desarrollado en Java con JavaFX y MySQL. La aplicación permite registrar, consultar, actualizar y eliminar propiedades, así como asociarlas con sus propietarios y manejar información específica de cada tipo de inmueble.
-
 ## Descripción del proyecto
 
-Este proyecto implementa un CRUD para gestionar inmuebles con una estructura basada en el modelo de dominio y una capa de infraestructura para acceso a datos.
+Este proyecto es una aplicación de escritorio para gestionar propiedades inmobiliarias. Permite registrar, consultar, actualizar y eliminar inmuebles, así como asociar la información del propietario y manejar datos específicos según el tipo de inmueble.
 
-Incluye soporte para:
+La aplicación está desarrollada en Java usando JavaFX para la interfaz gráfica y MySQL como motor de persistencia. El proyecto sigue una arquitectura orientada al dominio y casos de uso, separando la lógica de negocio de la infraestructura.
 
-- Casas
-- Apartamentos
-- Propietarios
-- Búsqueda por CHIP
-- Registro y actualización de datos específicos de cada tipo de inmueble
-- Persistencia en base de datos MySQL
+## ¿Qué hace la aplicación?
 
-La aplicación presenta una interfaz gráfica con JavaFX y está organizada siguiendo una arquitectura orientada a casos de uso.
+La aplicación permite:
+
+- Registrar viviendas, apartamentos y otros inmuebles.
+- Guardar información del propietario asociado.
+- Consultar todos los inmuebles registrados.
+- Buscar un inmueble por su CHIP.
+- Actualizar los datos de un inmueble existente.
+- Eliminar propiedades del sistema.
+- Administrar información específica como:
+  - número de piso para apartamentos
+  - cantidad de pisos para casas
+  - área y tipo de uso del sótano
 
 ## Tecnologías utilizadas
 
 - Java 11
 - Maven
-- JavaFX 17
+- JavaFX 17.0.10
 - MySQL 8
 - dotenv-java
+- JDBC
 
-## Arquitectura
+## Arquitectura del proyecto
 
-El proyecto está estructurado por capas:
+El proyecto está organizado por capas:
 
-- `co.edu.poli.aplication.domain.model` — entidades del dominio
+- `co.edu.poli.aplication.domain.model` — entidades del dominio (Inmueble, Casa, Apartamento, Propietario, Sotano)
 - `co.edu.poli.aplication.port.in` — casos de uso de entrada
-- `co.edu.poli.aplication.service` — implementación de los servicios
-- `co.edu.poli.infraestructure.persistence` — acceso a la base de datos
-- `co.edu.poli.infraestructure.ui` — controladores y vista de la interfaz
+- `co.edu.poli.aplication.port.out` — puerto de salida para persistencia
+- `co.edu.poli.aplication.service` — implementación de la lógica de negocio
+- `co.edu.poli.infraestructure.persistence` — acceso a base de datos y conexiones JDBC
+- `co.edu.poli.infraestructure.ui` — controladores de la interfaz gráfica
 - `co.edu.poli.vista` — punto de entrada de la aplicación
 
 ## Requisitos previos
 
-Antes de ejecutar el proyecto asegúrate de tener instalado:
+Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
 - JDK 11 o superior
 - Maven
 - MySQL Server
 - Git
+- IDE compatible (IntelliJ IDEA, Eclipse o VS Code con soporte Java)
+
+## Instalación
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/Blazutan/GestionInmuebles.git
+cd GestionInmuebles
+```
+
+2. Asegúrate de tener Maven disponible en tu sistema.
+
+3. Compila el proyecto:
+
+```bash
+mvn clean compile
+```
 
 ## Configuración de la base de datos
 
-1. Crear la base de datos en MySQL.
-2. Ejecutar el script SQL ubicado en:
+1. Inicia MySQL y crea la base de datos `gestion_inmuebles`.
+2. Ejecuta el script de creación de tablas ubicado en:
 
-   `src/main/resources/db/schema.sql`
+```text
+src/main/resources/db/schema.sql
+```
 
-3. Asegúrate de que exista una configuración de conexión con las siguientes variables de entorno en un archivo `.env` ubicado en la raíz del proyecto:
+3. En la raíz del proyecto crea un archivo `.env` con la siguiente estructura:
 
 ```env
 DB_URL=jdbc:mysql://localhost:3306/gestion_inmuebles?useSSL=false&serverTimezone=UTC
 DB_USER=tu_usuario
-DB_PASSWORD=tu_password
+DB_PASSWORD=tu_contraseña
 ```
 
-> La aplicación utiliza `dotenv-java` para leer este archivo automáticamente.
+> El proyecto usa `dotenv-java` para leer automáticamente estas variables desde el archivo `.env`.
 
-## Ejecución
+### Ejemplo de configuración local
+
+```env
+DB_URL=jdbc:mysql://localhost:3306/gestion_inmuebles?useSSL=false&serverTimezone=UTC
+DB_USER=root
+DB_PASSWORD=12345
+```
+
+## Ejecutar la aplicación
 
 Desde la raíz del proyecto, ejecuta:
 
 ```bash
-mvn clean compile
 mvn javafx:run
 ```
 
@@ -77,15 +110,26 @@ También puedes ejecutar la clase principal desde tu IDE:
 co.edu.poli.vista.InmuebleApplication
 ```
 
+## Operaciones CRUD
+
+La aplicación soporta las siguientes operaciones:
+
+| Operación | Descripción |
+|---|---|
+| Create | Registrar un nuevo inmueble junto con sus datos del propietario |
+| Read | Consultar todos los inmuebles o buscar uno por CHIP |
+| Update | Modificar la información de un inmueble existente |
+| Delete | Eliminar un inmueble del sistema |
+
 ## Funcionalidades principales
 
-- Crear un inmueble
-- Consultar todos los inmuebles
-- Buscar un inmueble por CHIP
-- Actualizar datos de un inmueble
-- Eliminar un inmueble
-- Registrar información del propietario asociado
-- Administrar tipos de inmueble con atributos específicos
+- Crear inmuebles
+- Consultar inmuebles
+- Buscar por CHIP
+- Actualizar información
+- Eliminar registros
+- Manejar propiedades de tipo casa y apartamento
+- Guardar metadatos del propietario y del inmueble
 
 ## Estructura del proyecto
 
@@ -97,18 +141,32 @@ GestionInmuebles/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   └── co/edu/poli/
+│   │   │   └── co/
+│   │   │       └── edu/
+│   │   │           └── poli/
+│   │   │               ├── aplication/
+│   │   │               │   ├── domain/
+│   │   │               │   ├── port/
+│   │   │               │   └── service/
+│   │   │               ├── infraestructure/
+│   │   │               │   ├── persistence/
+│   │   │               │   └── ui/
+│   │   │               └── vista/
 │   │   ├── resources/
 │   │   │   ├── co/edu/poli/infraestructure/ui/InmuebleView.fxml
 │   │   │   └── db/schema.sql
 │   └── test/
-└── target/
+│       └── java/
+├── target/
+└── .gitignore
 ```
 
-## Nota
+## Observaciones
 
-Este proyecto está pensado como una aplicación de gestión académica y funcional para manejo de inmuebles, con enfoque en buen diseño de dominio y separación de responsabilidades.
+- El proyecto se basa en una separación clara entre dominio, casos de uso y adaptadores.
+- La lógica de acceso a datos está encapsulada en repositorios JDBC.
+- La interfaz gráfica está diseñada para facilitar la administración de inmuebles sin requerir conocimientos de SQL.
 
 ## Autor
 
-Proyecto desarrollado en Java para gestión de inmuebles con arquitectura orientada a casos de uso.
+Proyecto desarrollado en Java para la gestión inmobiliaria con enfoque en arquitectura por capas y persistencia relacional.
